@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chá de Casa Nova · Bel & Lucas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+<style>
+/* ─── TOKENS ─────────────────────────────────────────────── */
+:root {
+  --cream:    #FAF8FF;
+  --cream-2:  #F2EDFF;
+  --cream-3:  #E5DEFF;
+  --ink:      #1A1622;
+  --ink-2:    #3D3450;
+  --ink-3:    #7D6F96;
+  --terra:    oklch(52% 0.21 288);
+  --terra-l:  oklch(68% 0.16 288);
+  --terra-xl: oklch(94% 0.05 288);
+  --sage:     oklch(80% 0.17 88);
+  --sage-l:   oklch(93% 0.09 88);
+  --gold:     oklch(72% 0.12 78);
+  --ff-serif: 'Gloock', Georgia, serif;
+  --ff-sans:  'DM Sans', system-ui, sans-serif;
+  --r:        16px;
+  --r-lg:     24px;
+  --shadow:   0 4px 32px oklch(0% 0 0 / 0.06);
+  --shadow-lg:0 12px 60px oklch(0% 0 0 / 0.10);
+}
+
+/* ─── RESET ──────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--ff-sans);
+  background: var(--cream);
+  color: var(--ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--cream) 0%, var(--cream-2) 60%, var(--terra-xl) 100%);
+}
+.hero-bg-decor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-bg-decor svg {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+}
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.28;
+}
+.hero-orb-1 {
+  width: 520px; height: 520px;
+  background: var(--terra-l);
+  top: -100px; right: -80px;
+  animation: drift 12s ease-in-out infinite alternate;
+}
+.hero-orb-2 {
+  width: 380px; height: 380px;
+  background: var(--sage-l);
+  bottom: -60px; left: -60px;
+  animation: drift 16s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift {
+  from { transform: translate(0,0) scale(1); }
+  to   { transform: translate(30px, -20px) scale(1.06); }
+}
+
+.hero-inner {
+  position: relative; z-index: 1;
+  max-width: 640px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-family: var(--ff-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--terra);
+  opacity: 0.5;
+}
+.hero-title {
+  font-family: var(--ff-serif);
+  font-size: clamp(52px, 10vw, 88px);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--terra);
+}
+.hero-couple {
+  font-family: var(--ff-serif);
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 400;
+  color: var(--ink-2);
+  margin-bottom: 32px;
+  letter-spacing: 0.05em;
+}
+.hero-story {
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--ink-2);
+  max-width: 500px;
+  margin: 0 auto 48px;
+  font-weight: 300;
+}
+
+.hero-illustration {
+  width: 120px; height: 120px;
+  margin: 0 auto 40px;
+  border-radius: 50%;
+  background: var(--cream-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+.hero-illustration::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid var(--terra);
+  opacity: 0.2;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--ff-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 100px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--terra);
+  color: white;
+  box-shadow: 0 6px 24px oklch(59% 0.13 42 / 0.35);
+}
+.btn-primary:hover {
+  background: oklch(53% 0.13 42);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px oklch(59% 0.13 42 / 0.45);
+}
+.btn-secondary {
+  background: white;
+  color: var(--ink);
+  border: 1.5px solid var(--cream-3);
+  box-shadow: var(--shadow);
+}
+.btn-secondary:hover {
+  border-color: var(--terra);
+  color: var(--terra);
+  transform: translateY(-2px);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--ink-3);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: bounce 2.5s ease-in-out infinite;
+}
+.hero-scroll svg { opacity: 0.5; }
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ─── SECTION CHROME ─────────────────────────────────────── */
+section { padding: 96px 24px; }
+.section-label {
+  font-family: var(--ff-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--terra);
+  margin-bottom: 12px;
+  display: block;
+}
+.section-title {
+  font-family: var(--ff-serif);
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.section-title em { font-style: italic; color: var(--terra); }
+.section-sub {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink-3);
+  max-width: 480px;
+  font-weight: 300;
+}
+
+/* ─── GIFTS SECTION ──────────────────────────────────────── */
+#presentes { background: var(--cream); }
+.gifts-header {
+  max-width: 1100px;
+  margin: 0 auto 64px;
+}
+.gifts-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* CARD BASE */
+.gift-card {
+  background: white;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+.gift-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+.gift-card.selected {
+  outline: 2.5px solid var(--terra);
+  outline-offset: 2px;
+}
+.gift-card.reserved { pointer-events: none; opacity: 0.7; }
+.gift-card.gifted { pointer-events: none; opacity: 0.55; }
+
+/* CARD LAYOUTS */
+.gift-card--wide  { grid-column: span 7; }
+.gift-card--med   { grid-column: span 5; }
+.gift-card--third { grid-column: span 4; }
+.gift-card--half  { grid-column: span 6; }
+
+@media (max-width: 900px) {
+  .gift-card--wide, .gift-card--med, .gift-card--third, .gift-card--half {
+    grid-column: span 12;
+  }
+}
+
+.gift-card__image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--cream-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.gift-card--wide .gift-card__image { aspect-ratio: 21/9; }
+.gift-card--third .gift-card__image { aspect-ratio: 4/3; }
+
+.gift-card__image-placeholder {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--ink-3);
+  font-family: var(--ff-sans);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--cream-2),
+    var(--cream-2) 8px,
+    var(--cream-3) 8px,
+    var(--cream-3) 16px
+  );
+}
+.gift-card__image-placeholder svg { opacity: 0.4; }
+
+.gift-card__status {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.status--available { background: var(--sage-l); color: var(--sage); }
+.status--reserved  { background: oklch(95% 0.04 60); color: oklch(52% 0.12 60); }
+.status--gifted    { background: oklch(94% 0.03 0); color: oklch(48% 0.08 0); }
+.status--urgent    { background: oklch(95% 0.07 38); color: var(--terra); }
+
+.gift-card__body {
+  padding: 24px;
+}
+.gift-card__category {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+.gift-card__name {
+  font-family: var(--ff-serif);
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.gift-card__desc {
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-style: italic;
+  font-family: var(--ff-serif);
+}
+.gift-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.gift-card__price {
+  font-family: var(--ff-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--terra);
+}
+.gift-card__price small {
+  font-family: var(--ff-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--ink-3);
+}
+.gift-card__select-btn {
+  font-family: var(--ff-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 100px;
+  border: 1.5px solid var(--cream-3);
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-2);
+  transition: all 0.2s ease;
+}
+.gift-card__select-btn:hover {
+  border-color: var(--terra);
+  color: var(--terra);
+  background: var(--terra-xl);
+}
+.gift-card.selected .gift-card__select-btn {
+  background: var(--terra);
+  border-color: var(--terra);
+  color: white;
+}
+
+/* PROGRESS BAR */
+.gift-card__progress {
+  margin-bottom: 16px;
+}
+.gift-card__progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+}
+.gift-card__progress-track {
+  height: 4px;
+  background: var(--cream-2);
+  border-radius: 100px;
+  overflow: hidden;
+}
+.gift-card__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--terra-l), var(--terra));
+  border-radius: 100px;
+  transition: width 1.2s ease;
+  width: 0;
+}
+.gift-card.visible .gift-card__progress-fill {
+  width: var(--progress, 0%);
+}
+
+/* QTY REMAINING */
+.qty-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--terra);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.qty-dot {
+  width: 6px; height: 6px;
+  background: var(--terra);
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ─── FREE VALUE SECTION ─────────────────────────────────── */
+#valor-livre {
+  background: linear-gradient(135deg, var(--cream-2) 0%, var(--terra-xl) 100%);
+  position: relative;
+  overflow: hidden;
+}
+#valor-livre::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: var(--terra-l);
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+}
+.free-value-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative; z-index: 1;
+}
+.free-value-card {
+  background: white;
+  border-radius: var(--r-lg);
+  padding: 48px;
+  box-shadow: var(--shadow-lg);
+}
+@media (max-width: 640px) {
+  .free-value-card { padding: 28px 20px; }
+}
+.quick-amounts {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.amount-chip {
+  font-family: var(--ff-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 100px;
+  border: 1.5px solid var(--cream-3);
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-2);
+  transition: all 0.2s ease;
+}
+.amount-chip:hover, .amount-chip.active {
+  border-color: var(--terra);
+  color: var(--terra);
+  background: var(--terra-xl);
+}
+.amount-input-wrap {
+  position: relative;
+  margin-bottom: 20px;
+}
+.amount-input-prefix {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--ff-serif);
+  font-size: 22px;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+.amount-input {
+  width: 100%;
+  padding: 18px 20px 18px 56px;
+  font-family: var(--ff-serif);
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1.5px solid var(--cream-3);
+  border-radius: var(--r);
+  outline: none;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+}
+.amount-input::-webkit-inner-spin-button,
+.amount-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+.amount-input:focus { border-color: var(--terra); }
+.name-msg-fields {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 28px;
+}
+.field-input, .field-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: var(--ff-sans);
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1.5px solid var(--cream-3);
+  border-radius: var(--r);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+.field-input:focus, .field-textarea:focus { border-color: var(--terra); }
+.field-input::placeholder, .field-textarea::placeholder { color: var(--ink-3); }
+
+/* ─── MODAL ──────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: oklch(10% 0.02 30 / 0.55);
+  backdrop-filter: blur(6px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+@media (min-width: 640px) {
+  .modal-overlay {
+    align-items: center;
+    padding: 24px;
+  }
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: white;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  width: 100%;
+  max-width: 520px;
+  max-height: 92svh;
+  overflow-y: auto;
+  padding: 36px 28px 40px;
+  transform: translateY(40px);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+@media (min-width: 640px) {
+  .modal {
+    border-radius: var(--r-lg);
+    transform: scale(0.94) translateY(20px);
+    padding: 44px 40px;
+  }
+}
+.modal-overlay.open .modal {
+  transform: none;
+}
+.modal-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--cream-2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-2);
+  transition: background 0.2s;
+}
+.modal-close:hover { background: var(--cream-3); }
+
+/* STEP INDICATORS */
+.modal-steps {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 36px;
+}
+.modal-step-dot {
+  height: 3px;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  flex: 1;
+  background: var(--cream-3);
+}
+.modal-step-dot.active { background: var(--terra); }
+
+/* STEP 1: Summary */
+.checkout-summary {
+  background: var(--cream);
+  border-radius: var(--r);
+  padding: 20px;
+  margin-bottom: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.checkout-summary-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  background: var(--terra-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--terra);
+}
+.checkout-summary-name {
+  font-family: var(--ff-serif);
+  font-size: 19px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.checkout-summary-price {
+  font-size: 22px;
+  font-family: var(--ff-serif);
+  color: var(--terra);
+  font-weight: 500;
+}
+
+/* STEP 2: PIX */
+.pix-container {
+  text-align: center;
+}
+.pix-amount-display {
+  font-family: var(--ff-serif);
+  font-size: 42px;
+  color: var(--terra);
+  font-weight: 300;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+}
+.pix-qr-wrap {
+  background: var(--cream);
+  border-radius: var(--r);
+  padding: 28px;
+  display: inline-block;
+  margin-bottom: 24px;
+  box-shadow: inset 0 2px 8px oklch(0% 0 0 / 0.04);
+}
+#qrcode canvas, #qrcode img {
+  display: block;
+  border-radius: 8px;
+}
+.pix-code-wrap {
+  background: var(--cream);
+  border: 1.5px solid var(--cream-3);
+  border-radius: var(--r);
+  padding: 14px 18px;
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--ink-2);
+  word-break: break-all;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  text-align: left;
+  max-height: 72px;
+  overflow: hidden;
+}
+.pix-actions {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.pix-actions .btn {
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+.btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--cream-3);
+  color: var(--ink-2);
+}
+.btn-outline:hover {
+  border-color: var(--terra);
+  color: var(--terra);
+}
+.copy-feedback {
+  font-size: 12px;
+  color: var(--sage);
+  text-align: center;
+  height: 18px;
+  transition: opacity 0.3s;
+}
+
+/* SUCCESS STATE */
+.success-state {
+  text-align: center;
+  padding: 24px 0;
+  display: none;
+}
+.success-icon {
+  width: 72px; height: 72px;
+  background: var(--sage-l);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--sage);
+}
+.success-title {
+  font-family: var(--ff-serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.success-msg {
+  font-size: 15px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  font-style: italic;
+  font-family: var(--ff-serif);
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer {
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--ink);
+  color: var(--cream-3);
+}
+.footer-couple {
+  font-family: var(--ff-serif);
+  font-size: 32px;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 12px;
+  color: var(--cream);
+}
+.footer-date {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ─── MISC ───────────────────────────────────────────────── */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--terra);
+  opacity: 0.4;
+  margin: 20px 0;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.nav.scrolled {
+  background: oklch(99% 0.01 60 / 0.9);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 1px 0 var(--cream-3);
+}
+.nav-logo {
+  font-family: var(--ff-serif);
+  font-size: 20px;
+  font-style: italic;
+  color: var(--ink);
+}
+.nav-links {
+  display: flex;
+  gap: 8px;
+}
+.nav-link {
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 100px;
+  transition: all 0.2s;
+}
+.nav-link:hover { background: var(--cream-2); color: var(--terra); }
+@media (max-width: 540px) {
+  .nav-links { display: none; }
+}
+
+/* LOADING SPINNER */
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--cream-3);
+  border-top-color: var(--terra);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── UTILITY ────────────────────────────────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); border: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ════════════════════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">B &amp; L</div>
+  <div class="nav-links">
+    <a href="#presentes" class="nav-link">Presentes</a>
+    <a href="#valor-livre" class="nav-link">Contribuir</a>
+    <button id="whatsapp-share-btn" class="btn" style="background:var(--sage-l);color:#3a7d44;padding:9px 16px;font-size:13px;gap:6px">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.118.554 4.107 1.523 5.832L.057 23.57a.5.5 0 0 0 .617.61l5.847-1.53A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.9 9.9 0 0 1-5.031-1.367l-.36-.214-3.733.977.996-3.638-.235-.374A9.86 9.86 0 0 1 2.1 12C2.1 6.53 6.53 2.1 12 2.1c5.47 0 9.9 4.43 9.9 9.9 0 5.47-4.43 9.9-9.9 9.9z"/></svg>
+      Compartilhar
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg-decor">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-illustration reveal">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 8 L48 24 L48 50 L8 50 L8 24 Z" fill="none" stroke="var(--terra)" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M20 50 L20 34 Q20 30 24 30 L32 30 Q36 30 36 34 L36 50" fill="none" stroke="var(--terra)" stroke-width="1.5" stroke-linejoin="round"/>
+        <path d="M28 8 L28 0" stroke="var(--terra)" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="28" cy="22" r="4" fill="var(--terra-xl)" stroke="var(--terra)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="hero-eyebrow reveal reveal-delay-1">Chá de Casa Nova</div>
+    <h1 class="hero-title reveal reveal-delay-2">
+      Um novo<br><em>lar</em> começa
+    </h1>
+    <p class="hero-couple reveal reveal-delay-3">Bel &amp; Lucas</p>
+    <p class="hero-story reveal reveal-delay-4">
+      Estamos começando um novo capítulo juntos — e nada nos tornaria mais felizes do que ter vocês fazendo parte dessa história. Cada presente é um pedaço do nosso lar.
+    </p>
+    <div id="hero-countdown" class="reveal reveal-delay-3" style="display:flex;gap:20px;justify-content:center;margin-bottom:36px"></div>
+    <div class="hero-ctas reveal reveal-delay-4">
+      <a href="#presentes" class="btn btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M20 12v10H4V12M22 7H2v5h20V7zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        Escolher um presente
+      </a>
+      <a href="#valor-livre" class="btn btn-secondary">
+        Contribuir com qualquer valor
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>descer</span>
+    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══ PRESENTES ═══════════════════════════════════════════ -->
+<section id="presentes">
+  <div class="gifts-header">
+    <span class="section-label reveal">Lista de presentes</span>
+    <h2 class="section-title reveal reveal-delay-1">Cada escolha<br><em>tem um significado</em></h2>
+    <p class="section-sub reveal reveal-delay-2">Montamos uma lista com carinho — coisas que vão compor o nosso dia a dia e guardar memórias boas.</p>
+    <div class="divider reveal reveal-delay-3"></div>
+    <div id="gifts-progress-bar" class="reveal reveal-delay-4" style="margin-top:32px"></div>
+  </div>
+  <div class="gifts-grid" id="gifts-grid">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- ═══ VALOR LIVRE ═════════════════════════════════════════ -->
+<section id="valor-livre">
+  <div class="free-value-inner">
+    <span class="section-label reveal">Contribuição livre</span>
+    <h2 class="section-title reveal reveal-delay-1">Prefere escolher<br><em>o valor?</em></h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin-bottom:48px">Qualquer contribuição faz diferença e será recebida com muito carinho.</p>
+
+    <div class="free-value-card reveal reveal-delay-3">
+      <p style="font-size:13px;color:var(--ink-3);margin-bottom:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:500;">Sugestões rápidas</p>
+      <div class="quick-amounts" id="quick-amounts">
+        <button class="amount-chip" data-val="50">R$ 50</button>
+        <button class="amount-chip" data-val="100">R$ 100</button>
+        <button class="amount-chip" data-val="150">R$ 150</button>
+        <button class="amount-chip" data-val="200">R$ 200</button>
+        <button class="amount-chip" data-val="300">R$ 300</button>
+      </div>
+      <div class="amount-input-wrap">
+        <span class="amount-input-prefix">R$</span>
+        <input type="number" class="amount-input" id="free-amount" placeholder="0" min="1">
+      </div>
+      <div class="name-msg-fields">
+        <input type="text" class="field-input" id="free-name" placeholder="Seu nome (opcional)">
+        <textarea class="field-textarea" id="free-msg" rows="2" placeholder="Uma mensagem para nós (opcional)"></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:16px" id="free-value-pay-btn">
+        Gerar Pix
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════ -->
+<footer>
+  <p class="footer-couple">Bel &amp; Lucas</p>
+  <p class="footer-date">Chá de Casa Nova · 2025</p>
+</footer>
+
+<!-- ═══ MODAL ═══════════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modal-close" aria-label="Fechar">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+
+    <!-- Steps indicator -->
+    <div class="modal-steps">
+      <div class="modal-step-dot active" id="step-dot-1"></div>
+      <div class="modal-step-dot" id="step-dot-2"></div>
+    </div>
+
+    <!-- STEP 1: Checkout -->
+    <div id="step-1">
+      <p style="font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:8px">Seu presente</p>
+      <h3 style="font-family:var(--ff-serif);font-size:26px;font-weight:400;margin-bottom:28px;color:var(--ink)">Quase lá <em style="font-style:italic">✦</em></h3>
+      <div class="checkout-summary">
+        <div class="checkout-summary-icon">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M20 12v10H4V12M22 7H2v5h20V7zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <div>
+          <div class="checkout-summary-name" id="summary-name">—</div>
+          <div class="checkout-summary-price" id="summary-price">—</div>
+        </div>
+      </div>
+      <div class="name-msg-fields" style="margin-bottom:28px">
+        <input type="text" class="field-input" id="checkout-name" placeholder="Seu nome (opcional)">
+        <textarea class="field-textarea" id="checkout-msg" rows="2" placeholder="Uma mensagem carinhosa (opcional)"></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:16px" id="generate-pix-btn">
+        Gerar QR Code Pix
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- STEP 2: Pix -->
+    <div id="step-2" style="display:none">
+      <p style="font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);margin-bottom:8px">Pagamento via Pix</p>
+      <h3 style="font-family:var(--ff-serif);font-size:26px;font-weight:400;margin-bottom:28px;color:var(--ink)">Escaneie e pague</h3>
+      <div class="pix-container">
+        <div class="pix-amount-display" id="pix-amount-display">R$ 0,00</div>
+        <div class="pix-qr-wrap">
+          <div id="qrcode"></div>
+        </div>
+        <div class="pix-code-wrap" id="pix-code-text"></div>
+        <div class="pix-actions">
+          <button class="btn btn-outline" id="copy-code-btn">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copiar código
+          </button>
+          <button class="btn btn-outline" id="copy-value-btn">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            Copiar valor
+          </button>
+        </div>
+        <div class="copy-feedback" id="copy-feedback"></div>
+      </div>
+
+      <!-- Success state -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">
+          <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        </div>
+        <p class="success-title">Muito obrigado! 🏡</p>
+        <p class="success-msg">"Seu carinho faz parte da nossa nova história ❤️"</p>
+        <button class="btn btn-primary" style="margin:0 auto;display:flex" id="close-success-btn">Fechar</button>
+      </div>
+
+      <button class="btn" style="width:100%;justify-content:center;background:var(--sage-l);color:var(--sage);font-size:14px;padding:14px;margin-top:16px" id="paid-btn">
+        ✓ Já paguei
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SCRIPT ══════════════════════════════════════════════ -->
+<script>
+/* ─── CONFIG ──────────────────────────────────────────────── */
+const CONFIG = {
+  eventoData: "2025-08-16",
+  pixKey: "62.381.773/0001-12",
+  nomeCasal: "Bel & Lucas",
+  nomeMerchant: "Bel e Lucas",
+  cidadeMerchant: "SAO PAULO",
+  mensagemHero: "Estamos começando um novo capítulo juntos.",
+  produtos: [
+    {
+      id: 1, layout: "wide",
+      categoria: "Sala de Estar",
+      nome: "Sofá 3 Lugares",
+      descricao: "Para noites de filme e conversas longas",
+      valor: 2400,
+      status: "available",
+      quantidade: null,
+      progresso: 65,
+      placeholder: "sofá — sala de estar"
+    },
+    {
+      id: 2, layout: "med",
+      categoria: "Cozinha",
+      nome: "Conjunto de Panelas",
+      descricao: "Para as nossas refeições de fim de semana",
+      valor: 580,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "panelas — cozinha"
+    },
+    {
+      id: 3, layout: "third",
+      categoria: "Cozinha",
+      nome: "Cafeteira Italiana",
+      descricao: "Para nossos cafés da manhã juntos",
+      valor: 180,
+      status: "available",
+      quantidade: 2,
+      progresso: null,
+      placeholder: "cafeteira — cozinha"
+    },
+    {
+      id: 4, layout: "third",
+      categoria: "Quarto",
+      nome: "Jogo de Cama King",
+      descricao: "Conforto e aconchego para nossas noites",
+      valor: 320,
+      status: "reserved",
+      quantidade: null,
+      progresso: null,
+      placeholder: "roupa de cama"
+    },
+    {
+      id: 5, layout: "third",
+      categoria: "Decoração",
+      nome: "Luminária de Mesa",
+      descricao: "Uma luz quente para nossos momentos de leitura",
+      valor: 240,
+      status: "available",
+      quantidade: 3,
+      progresso: null,
+      placeholder: "luminária"
+    },
+    {
+      id: 6, layout: "half",
+      categoria: "Sala",
+      nome: "Mesa de Jantar",
+      descricao: "Para reunir família e amigos queridos",
+      valor: 1800,
+      status: "available",
+      quantidade: null,
+      progresso: 40,
+      placeholder: "mesa de jantar"
+    },
+    {
+      id: 7, layout: "half",
+      categoria: "Banheiro",
+      nome: "Jogo de Toalhas Premium",
+      descricao: "Um toque de luxo no dia a dia",
+      valor: 220,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "toalhas"
+    },
+    {
+      id: 8, layout: "third",
+      categoria: "Cozinha",
+      nome: "Mixer & Liquidificador",
+      descricao: "Para smoothies de domingo de manhã",
+      valor: 350,
+      status: "gifted",
+      quantidade: null,
+      progresso: null,
+      placeholder: "mixer"
+    }
+  ]
+};
+
+/* ─── STATE ───────────────────────────────────────────────── */
+let state = {
+  selectedProduct: null,
+  freeAmount: 0,
+  checkoutType: null, // 'product' | 'free'
+};
+
+// Load saved state
+try {
+  const saved = JSON.parse(localStorage.getItem('cha_state') || '{}');
+  if (saved.reservedIds) {
+    saved.reservedIds.forEach(id => {
+      const p = CONFIG.produtos.find(x => x.id === id);
+      if (p && p.status === 'available') p.status = 'reserved';
+    });
+  }
+} catch(e) {}
+
+/* ─── NAV ─────────────────────────────────────────────────── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+/* ─── REVEAL ──────────────────────────────────────────────── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+/* ─── GIFT CARDS RENDER ───────────────────────────────────── */
+function formatBRL(v) {
+  return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+function statusLabel(s, qty) {
+  if (s === 'reserved') return { cls: 'status--reserved', txt: 'Reservado' };
+  if (s === 'gifted')   return { cls: 'status--gifted',   txt: 'Presenteado' };
+  if (qty !== null && qty <= 2) return { cls: 'status--urgent', txt: `Últimos ${qty}` };
+  return { cls: 'status--available', txt: 'Disponível' };
+}
+
+function renderGifts() {
+  const grid = document.getElementById('gifts-grid');
+  grid.innerHTML = '';
+  CONFIG.produtos.forEach((p, i) => {
+    const { cls, txt } = statusLabel(p.status, p.quantidade);
+    const card = document.createElement('div');
+    card.className = `gift-card gift-card--${p.layout} reveal reveal-delay-${(i % 4) + 1}`;
+    card.dataset.id = p.id;
+    if (p.status === 'reserved') card.classList.add('reserved');
+    if (p.status === 'gifted')   card.classList.add('gifted');
+
+    const progHtml = p.progresso ? `
+      <div class="gift-card__progress">
+        <div class="gift-card__progress-label">
+          <span>Progresso</span><span>${p.progresso}%</span>
+        </div>
+        <div class="gift-card__progress-track">
+          <div class="gift-card__progress-fill" style="--progress:${p.progresso}%"></div>
+        </div>
+      </div>` : '';
+
+    const qtyHtml = (p.quantidade !== null && p.status === 'available') ? `
+      <div class="qty-badge"><div class="qty-dot"></div>Restam ${p.quantidade} unidades</div>` : '';
+
+    const btnTxt = p.status === 'reserved' ? 'Reservado' : p.status === 'gifted' ? 'Presenteado' : 'Escolher';
+
+    card.innerHTML = `
+      <div class="gift-card__image">
+        <div class="gift-card__image-placeholder">
+          <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" opacity="0.5">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21,15 16,10 5,21"/>
+          </svg>
+          <span>${p.placeholder}</span>
+        </div>
+        <span class="gift-card__status ${cls}">${txt}</span>
+      </div>
+      <div class="gift-card__body">
+        <div class="gift-card__category">${p.categoria}</div>
+        <div class="gift-card__name">${p.nome}</div>
+        <div class="gift-card__desc">"${p.descricao}"</div>
+        ${qtyHtml}
+        ${progHtml}
+        <div class="gift-card__footer">
+          <div class="gift-card__price">
+            ${formatBRL(p.valor)}
+            ${p.progresso ? `<small> restante</small>` : ''}
+          </div>
+          ${p.status === 'available' ? `<button class="gift-card__select-btn" data-id="${p.id}">${btnTxt}</button>` : `<span style="font-size:12px;color:var(--ink-3)">${btnTxt}</span>`}
+        </div>
+      </div>`;
+
+    grid.appendChild(card);
+    revealObserver.observe(card);
+
+    // Observe for progress bar animation
+    if (p.progresso) {
+      const progObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            progObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.2 });
+      progObs.observe(card);
+    }
+
+    // Click handler
+    if (p.status === 'available') {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.gift-card__select-btn') || !e.target.closest('button')) {
+          selectProduct(p.id);
+        }
+      });
+    }
+  });
+}
+
+function selectProduct(id) {
+  const p = CONFIG.produtos.find(x => x.id === id);
+  if (!p || p.status !== 'available') return;
+
+  // Deselect others
+  document.querySelectorAll('.gift-card.selected').forEach(c => {
+    c.classList.remove('selected');
+    c.querySelector('.gift-card__select-btn').textContent = 'Escolher';
+  });
+
+  state.selectedProduct = p;
+  state.checkoutType = 'product';
+
+  const card = document.querySelector(`.gift-card[data-id="${id}"]`);
+  card.classList.add('selected');
+  card.querySelector('.gift-card__select-btn').textContent = '✓ Selecionado';
+
+  // Save selection
+  try { localStorage.setItem('cha_selected', id); } catch(e) {}
+
+  openCheckout();
+}
+
+/* ─── FREE VALUE ──────────────────────────────────────────── */
+document.querySelectorAll('.amount-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.getElementById('free-amount').value = chip.dataset.val;
+    state.freeAmount = parseInt(chip.dataset.val);
+  });
+});
+
+document.getElementById('free-amount').addEventListener('input', (e) => {
+  document.querySelectorAll('.amount-chip').forEach(c => c.classList.remove('active'));
+  state.freeAmount = parseFloat(e.target.value) || 0;
+});
+
+document.getElementById('free-value-pay-btn').addEventListener('click', () => {
+  const amount = parseFloat(document.getElementById('free-amount').value) || 0;
+  if (amount < 1) {
+    document.getElementById('free-amount').focus();
+    document.getElementById('free-amount').style.borderColor = 'var(--terra)';
+    setTimeout(() => document.getElementById('free-amount').style.borderColor = '', 1200);
+    return;
+  }
+  state.freeAmount = amount;
+  state.checkoutType = 'free';
+  state.selectedProduct = null;
+
+  const name = document.getElementById('free-name').value;
+  const msg  = document.getElementById('free-msg').value;
+
+  openPixStep(amount, 'Contribuição livre', name, msg);
+});
+
+/* ─── MODAL ───────────────────────────────────────────────── */
+const overlay = document.getElementById('modal-overlay');
+
+function openCheckout() {
+  const p = state.selectedProduct;
+  document.getElementById('summary-name').textContent = p.nome;
+  document.getElementById('summary-price').textContent = formatBRL(p.valor);
+  document.getElementById('step-1').style.display = '';
+  document.getElementById('step-2').style.display = 'none';
+  document.getElementById('success-state').style.display = 'none';
+  document.getElementById('step-dot-1').classList.add('active');
+  document.getElementById('step-dot-2').classList.remove('active');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.getElementById('close-success-btn').addEventListener('click', closeModal);
+
+document.getElementById('generate-pix-btn').addEventListener('click', () => {
+  const p = state.selectedProduct;
+  const name = document.getElementById('checkout-name').value;
+  const msg  = document.getElementById('checkout-msg').value;
+  openPixStep(p.valor, p.nome, name, msg);
+});
+
+function openPixStep(amount, itemName, name, msg) {
+  document.getElementById('step-1').style.display = 'none';
+  document.getElementById('step-2').style.display = '';
+  document.getElementById('success-state').style.display = 'none';
+  document.getElementById('paid-btn').style.display = '';
+  document.getElementById('step-dot-1').classList.remove('active');
+  document.getElementById('step-dot-2').classList.add('active');
+
+  if (!overlay.classList.contains('open')) {
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  const pixCode = generatePixCode(amount, itemName, name);
+  const displayAmt = amount.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  document.getElementById('pix-amount-display').textContent = displayAmt;
+  document.getElementById('pix-code-text').textContent = pixCode;
+
+  // Generate QR
+  const qrEl = document.getElementById('qrcode');
+  qrEl.innerHTML = '';
+  new QRCode(qrEl, {
+    text: pixCode,
+    width: 200,
+    height: 200,
+    colorDark: '#1E1A16',
+    colorLight: '#FAF7F2',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+/* ─── PIX BR CODE GENERATOR ──────────────────────────────── */
+function pixTLV(id, value) {
+  const v = String(value);
+  const len = String(v.length).padStart(2, '0');
+  return `${id}${len}${v}`;
+}
+
+function generatePixCode(amount, description, payerName) {
+  const key = CONFIG.pixKey;
+  const merchant = CONFIG.nomeMerchant.substring(0, 25).toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+  const city = CONFIG.cidadeMerchant.substring(0, 15).toUpperCase().replace(/[^A-Z0-9 ]/g, '');
+  const desc = description.substring(0, 40).replace(/[^\w\s]/gi, '').trim() || 'Cha Casa Nova';
+  const amtStr = amount.toFixed(2);
+  const txid = 'CHACASANOVA' + Date.now().toString().slice(-8);
+
+  const merchantAccountInfo =
+    pixTLV('00', 'br.gov.bcb.pix') +
+    pixTLV('01', key) +
+    pixTLV('02', desc.substring(0, 40));
+
+  const additionalData = pixTLV('05', txid);
+
+  let payload =
+    pixTLV('00', '01') +
+    pixTLV('26', merchantAccountInfo) +
+    pixTLV('52', '0000') +
+    pixTLV('53', '986') +
+    pixTLV('54', amtStr) +
+    pixTLV('58', 'BR') +
+    pixTLV('59', merchant) +
+    pixTLV('60', city) +
+    pixTLV('62', additionalData) +
+    '6304';
+
+  payload += crc16(payload).toString(16).toUpperCase().padStart(4, '0');
+  return payload;
+}
+
+function crc16(str) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < str.length; i++) {
+    crc ^= str.charCodeAt(i) << 8;
+    for (let j = 0; j < 8; j++) {
+      if (crc & 0x8000) crc = (crc << 1) ^ 0x1021;
+      else crc <<= 1;
+      crc &= 0xFFFF;
+    }
+  }
+  return crc;
+}
+
+/* ─── COPY BUTTONS ────────────────────────────────────────── */
+function showCopyFeedback(msg) {
+  const el = document.getElementById('copy-feedback');
+  el.textContent = msg;
+  el.style.opacity = '1';
+  setTimeout(() => el.style.opacity = '0', 2000);
+}
+
+document.getElementById('copy-code-btn').addEventListener('click', () => {
+  const code = document.getElementById('pix-code-text').textContent;
+  navigator.clipboard.writeText(code).then(() => showCopyFeedback('✓ Código copiado!'));
+});
+
+document.getElementById('copy-value-btn').addEventListener('click', () => {
+  const amt = document.getElementById('pix-amount-display').textContent;
+  navigator.clipboard.writeText(amt).then(() => showCopyFeedback('✓ Valor copiado!'));
+});
+
+/* ─── PAID BUTTON ─────────────────────────────────────────── */
+document.getElementById('paid-btn').addEventListener('click', () => {
+  document.querySelector('.pix-container').style.display = 'none';
+  document.getElementById('paid-btn').style.display = 'none';
+  document.getElementById('success-state').style.display = 'block';
+
+  // Mark as reserved
+  if (state.selectedProduct) {
+    state.selectedProduct.status = 'reserved';
+    try {
+      const saved = JSON.parse(localStorage.getItem('cha_state') || '{}');
+      saved.reservedIds = [...(saved.reservedIds || []), state.selectedProduct.id];
+      localStorage.setItem('cha_state', JSON.stringify(saved));
+    } catch(e) {}
+    renderGifts();
+  }
+
+  // Confetti!
+  launchConfetti();
+});
+
+function launchConfetti() {
+  const colors = ['#7C3AED', '#A78BFA', '#F5C842', '#C4B5FD', '#FDE68A'];
+  confetti({
+    particleCount: 80,
+    spread: 70,
+    origin: { y: 0.6 },
+    colors,
+    shapes: ['circle', 'square'],
+  });
+  setTimeout(() => confetti({ particleCount: 40, spread: 90, origin: { y: 0.5, x: 0.3 }, colors }), 250);
+  setTimeout(() => confetti({ particleCount: 40, spread: 90, origin: { y: 0.5, x: 0.7 }, colors }), 400);
+}
+
+/* ─── COUNTDOWN ──────────────────────────────────────────── */
+function renderCountdown() {
+  const el = document.getElementById('hero-countdown');
+  if (!el || !CONFIG.eventoData) return;
+  const target = new Date(CONFIG.eventoData + 'T00:00:00');
+  function update() {
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) { el.innerHTML = '<span style="font-size:15px;color:var(--terra);font-weight:500">É hoje! 🎉</span>'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const unit = (v, u) => `<div style="text-align:center"><div style="font-family:var(--ff-serif);font-size:32px;font-weight:400;color:var(--ink);line-height:1">${String(v).padStart(2,'0')}</div><div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:3px">${u}</div></div>`;
+    const sep = `<div style="font-family:var(--ff-serif);font-size:28px;color:var(--terra);opacity:.4;align-self:flex-start;padding-top:4px">:</div>`;
+    el.innerHTML = unit(d,'dias') + sep + unit(h,'horas') + sep + unit(m,'min') + sep + unit(s,'seg');
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+/* ─── GIFTS PROGRESS ─────────────────────────────────────── */
+function renderGiftsProgress() {
+  const el = document.getElementById('gifts-progress-bar');
+  if (!el) return;
+  const total = CONFIG.produtos.length;
+  const chosen = CONFIG.produtos.filter(p => p.status !== 'available').length;
+  const pct = Math.round((chosen / total) * 100);
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <span style="font-size:13px;color:var(--ink-3)">${chosen} de ${total} itens escolhidos</span>
+      <span style="font-size:13px;font-weight:500;color:var(--terra)">${pct}%</span>
+    </div>
+    <div style="height:5px;background:var(--cream-3);border-radius:100px;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--terra-l),var(--terra));border-radius:100px;transition:width 1s ease"></div>
+    </div>
+  `;
+}
+
+/* ─── WHATSAPP SHARE ──────────────────────────────────────── */
+document.getElementById('whatsapp-share-btn').addEventListener('click', () => {
+  const msg = encodeURIComponent(`🏡 *Chá de Casa Nova — ${CONFIG.nomeCasal}*\n\nEstamos abrindo as portas do nosso novo lar e adoraríamos contar com sua presença!\n\nVeja a lista de presentes e contribua com carinho:\n${window.location.href}`);
+  window.open(`https://wa.me/?text=${msg}`, '_blank');
+});
+
+/* ─── INIT ────────────────────────────────────────────────── */
+renderGifts();
+renderCountdown();
+renderGiftsProgress();
+</script>
+
+</body>
+</html>
