@@ -281,7 +281,7 @@ section { padding: 96px 24px; }
   max-width: 1100px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
@@ -306,17 +306,7 @@ section { padding: 96px 24px; }
 .gift-card.reserved { pointer-events: none; opacity: 0.7; }
 .gift-card.gifted { pointer-events: none; opacity: 0.55; }
 
-/* CARD LAYOUTS */
-.gift-card--wide  { grid-column: span 8; }
-.gift-card--med   { grid-column: span 4; }
-.gift-card--third { grid-column: span 4; }
-.gift-card--half  { grid-column: span 6; }
-
-@media (max-width: 900px) {
-  .gift-card--wide, .gift-card--med, .gift-card--third, .gift-card--half {
-    grid-column: span 12;
-  }
-}
+/* CARD LAYOUTS - Removed since using auto-fill grid */
 
 .gift-card__image {
   width: 100%;
@@ -328,8 +318,6 @@ section { padding: 96px 24px; }
   position: relative;
   overflow: hidden;
 }
-.gift-card--wide .gift-card__image { aspect-ratio: 21/9; }
-.gift-card--third .gift-card__image { aspect-ratio: 4/3; }
 
 .gift-card__image-placeholder {
   width: 100%; height: 100%;
@@ -1117,11 +1105,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Forno Elétrico",
       descricao: "Para preparar receitas especiais e assados",
-      valor: 1200,
+      valor: 450,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "forno — cozinha"
+      placeholder: "forno — cozinha",
+      imagem: "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=800&h=400&fit=crop"
     },
     {
       id: 2, layout: "third",
@@ -1129,11 +1118,12 @@ const CONFIG = {
       filtro: "mesa",
       nome: "Jogo de Pratos",
       descricao: "Para servir nossas refeições com elegância",
-      valor: 280,
+      valor: 180,
       status: "available",
       quantidade: 2,
       progresso: null,
-      placeholder: "pratos — cozinha"
+      placeholder: "pratos — cozinha",
+      imagem: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&h=300&fit=crop"
     },
     {
       id: 3, layout: "third",
@@ -1141,11 +1131,12 @@ const CONFIG = {
       filtro: "mesa",
       nome: "Conjunto de Talheres",
       descricao: "Para jantares especiais e dia a dia",
-      valor: 220,
+      valor: 120,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "talheres — cozinha"
+      placeholder: "talheres — cozinha",
+      imagem: "https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=400&h=300&fit=crop"
     },
     {
       id: 4, layout: "half",
@@ -1157,7 +1148,8 @@ const CONFIG = {
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "microondas — cozinha"
+      placeholder: "microondas — cozinha",
+      imagem: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop"
     },
     {
       id: 5, layout: "third",
@@ -1169,7 +1161,8 @@ const CONFIG = {
       status: "available",
       quantidade: 3,
       progresso: null,
-      placeholder: "copos — cozinha"
+      placeholder: "copos — cozinha",
+      imagem: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=300&fit=crop"
     },
     {
       id: 6, layout: "wide",
@@ -1177,11 +1170,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Armário de Cozinha",
       descricao: "Organização e beleza para nosso espaço",
-      valor: 1800,
+      valor: 1200,
       status: "available",
       quantidade: null,
-      progresso: 30,
-      placeholder: "armário — cozinha"
+      progresso: null,
+      placeholder: "armário — cozinha",
+      imagem: "https://images.unsplash.com/photo-1556909114-44e3e70034e2?w=800&h=400&fit=crop"
     },
     {
       id: 7, layout: "third",
@@ -1193,7 +1187,8 @@ const CONFIG = {
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "potes — cozinha"
+      placeholder: "potes — cozinha",
+      imagem: "https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&h=300&fit=crop"
     },
     {
       id: 8, layout: "half",
@@ -1201,11 +1196,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Cortina",
       descricao: "Para controlar a luz e dar aconchego",
-      valor: 380,
+      valor: 250,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "cortina — sala"
+      placeholder: "cortina — sala",
+      imagem: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&h=300&fit=crop"
     },
     {
       id: 9, layout: "wide",
@@ -1213,11 +1209,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Televisão Smart",
       descricao: "Para filmes, séries e momentos juntos",
-      valor: 2800,
+      valor: 2200,
       status: "available",
       quantidade: null,
-      progresso: 45,
-      placeholder: "televisão — sala"
+      progresso: null,
+      placeholder: "televisão — sala",
+      imagem: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=800&h=400&fit=crop"
     },
     {
       id: 10, layout: "half",
@@ -1225,11 +1222,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Sofá 2 Lugares",
       descricao: "Conforto para receber visitas",
-      valor: 1600,
+      valor: 1200,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "sofá — sala"
+      placeholder: "sofá — sala",
+      imagem: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop"
     },
     {
       id: 11, layout: "half",
@@ -1237,11 +1235,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Painel de TV",
       descricao: "Para organizar a área de entretenimento",
-      valor: 650,
+      valor: 450,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "painel — sala"
+      placeholder: "painel — sala",
+      imagem: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=400&h=300&fit=crop"
     },
     {
       id: 12, layout: "third",
@@ -1249,11 +1248,12 @@ const CONFIG = {
       filtro: "banho",
       nome: "Jogo de Banho",
       descricao: "Toalhas e acessórios coordenados",
-      valor: 260,
+      valor: 180,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "jogo de banho"
+      placeholder: "jogo de banho",
+      imagem: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=300&fit=crop"
     },
     {
       id: 13, layout: "half",
@@ -1261,11 +1261,12 @@ const CONFIG = {
       filtro: "banho",
       nome: "Box de Banheiro",
       descricao: "Segurança e modernidade para o banheiro",
-      valor: 890,
+      valor: 550,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "box — banheiro"
+      placeholder: "box — banheiro",
+      imagem: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
     },
     {
       id: 14, layout: "third",
@@ -1273,11 +1274,12 @@ const CONFIG = {
       filtro: "banho",
       nome: "Espelho com Armário",
       descricao: "Praticidade e estilo no banheiro",
-      valor: 320,
+      valor: 200,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "espelho — banheiro"
+      placeholder: "espelho — banheiro",
+      imagem: "https://images.unsplash.com/photo-1584622050111-993a426fbf0a?w=400&h=300&fit=crop"
     },
     {
       id: 15, layout: "half",
@@ -1285,11 +1287,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Arara/Cabideira",
       descricao: "Organização para roupas e acessórios",
-      valor: 420,
+      valor: 280,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "arara — quarto"
+      placeholder: "arara — quarto",
+      imagem: "https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=400&h=300&fit=crop"
     },
     {
       id: 16, layout: "third",
@@ -1297,11 +1300,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Jogo de Cama Queen",
       descricao: "Conforto para noites de sono tranquilo",
-      valor: 350,
+      valor: 250,
       status: "available",
       quantidade: 2,
       progresso: null,
-      placeholder: "jogo de cama — quarto"
+      placeholder: "jogo de cama — quarto",
+      imagem: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&h=300&fit=crop"
     },
     {
       id: 17, layout: "half",
@@ -1309,11 +1313,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Cortina Blackout",
       descricao: "Para noites bem dormidas e privacidade",
-      valor: 480,
+      valor: 280,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "cortina — quarto"
+      placeholder: "cortina — quarto",
+      imagem: "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&h=300&fit=crop"
     },
     {
       id: 18, layout: "third",
@@ -1321,11 +1326,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Conjunto de Travesseiros",
       descricao: "Conforto cervical para um sono reparador",
-      valor: 290,
+      valor: 180,
       status: "available",
       quantidade: 2,
       progresso: null,
-      placeholder: "travesseiros — quarto"
+      placeholder: "travesseiros — quarto",
+      imagem: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&h=300&fit=crop"
     },
     {
       id: 19, layout: "half",
@@ -1333,11 +1339,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Persiana",
       descricao: "Controle de luz e privacidade",
-      valor: 380,
+      valor: 220,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "persiana — quarto"
+      placeholder: "persiana — quarto",
+      imagem: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=400&h=300&fit=crop"
     },
     {
       id: 20, layout: "third",
@@ -1349,7 +1356,8 @@ const CONFIG = {
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "varal — área externa"
+      placeholder: "varal — área externa",
+      imagem: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&h=300&fit=crop"
     },
     {
       id: 21, layout: "wide",
@@ -1357,11 +1365,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Máquina de Lavar",
       descricao: "Para facilitar o dia a dia",
-      valor: 1500,
+      valor: 1100,
       status: "available",
       quantidade: null,
-      progresso: 35,
-      placeholder: "máquina de lavar — área externa"
+      progresso: null,
+      placeholder: "máquina de lavar — área externa",
+      imagem: "https://images.unsplash.com/photo-1584132294141-4375c8d755a7?w=800&h=400&fit=crop"
     },
     {
       id: 22, layout: "half",
@@ -1369,11 +1378,12 @@ const CONFIG = {
       filtro: "casa",
       nome: "Churrasqueira",
       descricao: "Para reunir família e amigos",
-      valor: 750,
+      valor: 450,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "churrasqueira — área externa"
+      placeholder: "churrasqueira — área externa",
+      imagem: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=400&h=300&fit=crop"
     }
   ]
 };
@@ -1435,8 +1445,9 @@ function renderGifts(filter = 'all') {
   
   filteredProducts.forEach((p, i) => {
     const { cls, txt } = statusLabel(p.status, p.quantidade);
+    
     const card = document.createElement('div');
-    card.className = `gift-card gift-card--${p.layout} reveal reveal-delay-${(i % 4) + 1}`;
+    card.className = `gift-card reveal reveal-delay-${(i % 4) + 1}`;
     card.dataset.id = p.id;
     if (p.status === 'reserved') card.classList.add('reserved');
     if (p.status === 'gifted')   card.classList.add('gifted');
@@ -1456,15 +1467,19 @@ function renderGifts(filter = 'all') {
 
     const btnTxt = p.status === 'reserved' ? 'Reservado' : p.status === 'gifted' ? 'Presenteado' : 'Escolher';
 
-    card.innerHTML = `
-      <div class="gift-card__image">
-        <div class="gift-card__image-placeholder">
+    const imageHtml = p.imagem 
+      ? `<img src="${p.imagem}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover" loading="lazy">`
+      : `<div class="gift-card__image-placeholder">
           <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" opacity="0.5">
             <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
             <polyline points="21,15 16,10 5,21"/>
           </svg>
           <span>${p.placeholder}</span>
-        </div>
+        </div>`;
+
+    card.innerHTML = `
+      <div class="gift-card__image">
+        ${imageHtml}
         <span class="gift-card__status ${cls}">${txt}</span>
       </div>
       <div class="gift-card__body">
