@@ -307,8 +307,8 @@ section { padding: 96px 24px; }
 .gift-card.gifted { pointer-events: none; opacity: 0.55; }
 
 /* CARD LAYOUTS */
-.gift-card--wide  { grid-column: span 7; }
-.gift-card--med   { grid-column: span 5; }
+.gift-card--wide  { grid-column: span 8; }
+.gift-card--med   { grid-column: span 4; }
 .gift-card--third { grid-column: span 4; }
 .gift-card--half  { grid-column: span 6; }
 
@@ -532,6 +532,25 @@ section { padding: 96px 24px; }
   transition: all 0.2s ease;
 }
 .amount-chip:hover, .amount-chip.active {
+  border-color: var(--terra);
+  color: var(--terra);
+  background: var(--terra-xl);
+}
+
+/* FILTER BUTTONS */
+.filter-btn {
+  font-family: var(--ff-sans);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 100px;
+  border: 1.5px solid var(--cream-3);
+  background: transparent;
+  cursor: pointer;
+  color: var(--ink-2);
+  transition: all 0.2s ease;
+}
+.filter-btn:hover, .filter-btn.active {
   border-color: var(--terra);
   color: var(--terra);
   background: var(--terra-xl);
@@ -953,6 +972,14 @@ footer {
     <p class="section-sub reveal reveal-delay-2">Montamos uma lista com carinho — coisas que vão compor o nosso dia a dia e guardar memórias boas.</p>
     <div class="divider reveal reveal-delay-3"></div>
     <div id="gifts-progress-bar" class="reveal reveal-delay-4" style="margin-top:32px"></div>
+    
+    <!-- Filter Buttons -->
+    <div class="filter-buttons reveal reveal-delay-4" style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+      <button class="filter-btn active" data-filter="all">Todos</button>
+      <button class="filter-btn" data-filter="casa">Casa</button>
+      <button class="filter-btn" data-filter="mesa">Mesa</button>
+      <button class="filter-btn" data-filter="banho">Banho</button>
+    </div>
   </div>
   <div class="gifts-grid" id="gifts-grid">
     <!-- Populated by JS -->
@@ -1086,91 +1113,267 @@ const CONFIG = {
   produtos: [
     {
       id: 1, layout: "wide",
-      categoria: "Sala de Estar",
-      nome: "Sofá 3 Lugares",
-      descricao: "Para noites de filme e conversas longas",
-      valor: 2400,
-      status: "available",
-      quantidade: null,
-      progresso: 65,
-      placeholder: "sofá — sala de estar"
-    },
-    {
-      id: 2, layout: "med",
       categoria: "Cozinha",
-      nome: "Conjunto de Panelas",
-      descricao: "Para as nossas refeições de fim de semana",
-      valor: 580,
+      filtro: "casa",
+      nome: "Forno Elétrico",
+      descricao: "Para preparar receitas especiais e assados",
+      valor: 1200,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "panelas — cozinha"
+      placeholder: "forno — cozinha"
+    },
+    {
+      id: 2, layout: "third",
+      categoria: "Cozinha",
+      filtro: "mesa",
+      nome: "Jogo de Pratos",
+      descricao: "Para servir nossas refeições com elegância",
+      valor: 280,
+      status: "available",
+      quantidade: 2,
+      progresso: null,
+      placeholder: "pratos — cozinha"
     },
     {
       id: 3, layout: "third",
       categoria: "Cozinha",
-      nome: "Cafeteira Italiana",
-      descricao: "Para nossos cafés da manhã juntos",
-      valor: 180,
-      status: "available",
-      quantidade: 2,
-      progresso: null,
-      placeholder: "cafeteira — cozinha"
-    },
-    {
-      id: 4, layout: "third",
-      categoria: "Quarto",
-      nome: "Jogo de Cama King",
-      descricao: "Conforto e aconchego para nossas noites",
-      valor: 320,
-      status: "reserved",
-      quantidade: null,
-      progresso: null,
-      placeholder: "roupa de cama"
-    },
-    {
-      id: 5, layout: "third",
-      categoria: "Decoração",
-      nome: "Luminária de Mesa",
-      descricao: "Uma luz quente para nossos momentos de leitura",
-      valor: 240,
-      status: "available",
-      quantidade: 3,
-      progresso: null,
-      placeholder: "luminária"
-    },
-    {
-      id: 6, layout: "half",
-      categoria: "Sala",
-      nome: "Mesa de Jantar",
-      descricao: "Para reunir família e amigos queridos",
-      valor: 1800,
-      status: "available",
-      quantidade: null,
-      progresso: 40,
-      placeholder: "mesa de jantar"
-    },
-    {
-      id: 7, layout: "half",
-      categoria: "Banheiro",
-      nome: "Jogo de Toalhas Premium",
-      descricao: "Um toque de luxo no dia a dia",
+      filtro: "mesa",
+      nome: "Conjunto de Talheres",
+      descricao: "Para jantares especiais e dia a dia",
       valor: 220,
       status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "toalhas"
+      placeholder: "talheres — cozinha"
     },
     {
-      id: 8, layout: "third",
+      id: 4, layout: "half",
       categoria: "Cozinha",
-      nome: "Mixer & Liquidificador",
-      descricao: "Para smoothies de domingo de manhã",
-      valor: 350,
-      status: "gifted",
+      filtro: "casa",
+      nome: "Microondas",
+      descricao: "Praticidade para o nosso dia a dia",
+      valor: 450,
+      status: "available",
       quantidade: null,
       progresso: null,
-      placeholder: "mixer"
+      placeholder: "microondas — cozinha"
+    },
+    {
+      id: 5, layout: "third",
+      categoria: "Cozinha",
+      filtro: "mesa",
+      nome: "Jogo de Copos",
+      descricao: "Para brindar os momentos felizes",
+      valor: 180,
+      status: "available",
+      quantidade: 3,
+      progresso: null,
+      placeholder: "copos — cozinha"
+    },
+    {
+      id: 6, layout: "wide",
+      categoria: "Cozinha",
+      filtro: "casa",
+      nome: "Armário de Cozinha",
+      descricao: "Organização e beleza para nosso espaço",
+      valor: 1800,
+      status: "available",
+      quantidade: null,
+      progresso: 30,
+      placeholder: "armário — cozinha"
+    },
+    {
+      id: 7, layout: "third",
+      categoria: "Cozinha",
+      filtro: "mesa",
+      nome: "Conjunto de Potes",
+      descricao: "Para guardar alimentos com organização",
+      valor: 150,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "potes — cozinha"
+    },
+    {
+      id: 8, layout: "half",
+      categoria: "Sala",
+      filtro: "casa",
+      nome: "Cortina",
+      descricao: "Para controlar a luz e dar aconchego",
+      valor: 380,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "cortina — sala"
+    },
+    {
+      id: 9, layout: "wide",
+      categoria: "Sala",
+      filtro: "casa",
+      nome: "Televisão Smart",
+      descricao: "Para filmes, séries e momentos juntos",
+      valor: 2800,
+      status: "available",
+      quantidade: null,
+      progresso: 45,
+      placeholder: "televisão — sala"
+    },
+    {
+      id: 10, layout: "half",
+      categoria: "Sala",
+      filtro: "casa",
+      nome: "Sofá 2 Lugares",
+      descricao: "Conforto para receber visitas",
+      valor: 1600,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "sofá — sala"
+    },
+    {
+      id: 11, layout: "half",
+      categoria: "Sala",
+      filtro: "casa",
+      nome: "Painel de TV",
+      descricao: "Para organizar a área de entretenimento",
+      valor: 650,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "painel — sala"
+    },
+    {
+      id: 12, layout: "third",
+      categoria: "Banheiro",
+      filtro: "banho",
+      nome: "Jogo de Banho",
+      descricao: "Toalhas e acessórios coordenados",
+      valor: 260,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "jogo de banho"
+    },
+    {
+      id: 13, layout: "half",
+      categoria: "Banheiro",
+      filtro: "banho",
+      nome: "Box de Banheiro",
+      descricao: "Segurança e modernidade para o banheiro",
+      valor: 890,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "box — banheiro"
+    },
+    {
+      id: 14, layout: "third",
+      categoria: "Banheiro",
+      filtro: "banho",
+      nome: "Espelho com Armário",
+      descricao: "Praticidade e estilo no banheiro",
+      valor: 320,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "espelho — banheiro"
+    },
+    {
+      id: 15, layout: "half",
+      categoria: "Quartos",
+      filtro: "casa",
+      nome: "Arara/Cabideira",
+      descricao: "Organização para roupas e acessórios",
+      valor: 420,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "arara — quarto"
+    },
+    {
+      id: 16, layout: "third",
+      categoria: "Quartos",
+      filtro: "casa",
+      nome: "Jogo de Cama Queen",
+      descricao: "Conforto para noites de sono tranquilo",
+      valor: 350,
+      status: "available",
+      quantidade: 2,
+      progresso: null,
+      placeholder: "jogo de cama — quarto"
+    },
+    {
+      id: 17, layout: "half",
+      categoria: "Quartos",
+      filtro: "casa",
+      nome: "Cortina Blackout",
+      descricao: "Para noites bem dormidas e privacidade",
+      valor: 480,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "cortina — quarto"
+    },
+    {
+      id: 18, layout: "third",
+      categoria: "Quartos",
+      filtro: "casa",
+      nome: "Conjunto de Travesseiros",
+      descricao: "Conforto cervical para um sono reparador",
+      valor: 290,
+      status: "available",
+      quantidade: 2,
+      progresso: null,
+      placeholder: "travesseiros — quarto"
+    },
+    {
+      id: 19, layout: "half",
+      categoria: "Quartos",
+      filtro: "casa",
+      nome: "Persiana",
+      descricao: "Controle de luz e privacidade",
+      valor: 380,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "persiana — quarto"
+    },
+    {
+      id: 20, layout: "third",
+      categoria: "Área Externa",
+      filtro: "casa",
+      nome: "Varal de Teto",
+      descricao: "Praticidade para secar roupas",
+      valor: 180,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "varal — área externa"
+    },
+    {
+      id: 21, layout: "wide",
+      categoria: "Área Externa",
+      filtro: "casa",
+      nome: "Máquina de Lavar",
+      descricao: "Para facilitar o dia a dia",
+      valor: 1500,
+      status: "available",
+      quantidade: null,
+      progresso: 35,
+      placeholder: "máquina de lavar — área externa"
+    },
+    {
+      id: 22, layout: "half",
+      categoria: "Área Externa",
+      filtro: "casa",
+      nome: "Churrasqueira",
+      descricao: "Para reunir família e amigos",
+      valor: 750,
+      status: "available",
+      quantidade: null,
+      progresso: null,
+      placeholder: "churrasqueira — área externa"
     }
   ]
 };
@@ -1222,10 +1425,15 @@ function statusLabel(s, qty) {
   return { cls: 'status--available', txt: 'Disponível' };
 }
 
-function renderGifts() {
+function renderGifts(filter = 'all') {
   const grid = document.getElementById('gifts-grid');
   grid.innerHTML = '';
-  CONFIG.produtos.forEach((p, i) => {
+  
+  const filteredProducts = filter === 'all' 
+    ? CONFIG.produtos 
+    : CONFIG.produtos.filter(p => p.filtro === filter);
+  
+  filteredProducts.forEach((p, i) => {
     const { cls, txt } = statusLabel(p.status, p.quantidade);
     const card = document.createElement('div');
     card.className = `gift-card gift-card--${p.layout} reveal reveal-delay-${(i % 4) + 1}`;
@@ -1355,6 +1563,19 @@ document.getElementById('free-value-pay-btn').addEventListener('click', () => {
   const msg  = document.getElementById('free-msg').value;
 
   openPixStep(amount, 'Contribuição livre', name, msg);
+});
+
+/* ─── FILTER BUTTONS ─────────────────────────────────────────── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Update active state
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // Filter products
+    const filter = btn.dataset.filter;
+    renderGifts(filter);
+  });
 });
 
 /* ─── MODAL ───────────────────────────────────────────────── */
@@ -1503,7 +1724,9 @@ document.getElementById('paid-btn').addEventListener('click', () => {
       saved.reservedIds = [...(saved.reservedIds || []), state.selectedProduct.id];
       localStorage.setItem('cha_state', JSON.stringify(saved));
     } catch(e) {}
-    renderGifts();
+    // Get current active filter
+    const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    renderGifts(activeFilter);
   }
 
   // Confetti!
@@ -1572,6 +1795,10 @@ document.getElementById('whatsapp-share-btn').addEventListener('click', () => {
 renderGifts();
 renderCountdown();
 renderGiftsProgress();
+
+// Observe filter buttons container for reveal animation
+const filterButtons = document.querySelector('.filter-buttons');
+if (filterButtons) revealObserver.observe(filterButtons);
 </script>
 
 </body>
